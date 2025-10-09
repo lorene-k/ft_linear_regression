@@ -1,23 +1,64 @@
 import numpy as np
+import json
+from utils import load_file
+import os
 
-# m = training examples, b = number of features
-# y is R^(1 x m), X is R^(n * m), w is R^(n * 1)
-class LinearRegression():
+
+# m = training examples (nb of pts), n = number of features = 2 (intercept 1 * mileage)
+# y is R^(1 x m) = prices, X is R^(n * m) = input matrix = intercept + mileage, w is R^(n * 1) = thetas
+class LinearRegression:
     def __init__(self):
-        pass
-    
-    def yhat(self, x, w):
-        """Compute predictions"""
-        pass
-    
-    def loss(self, yhat, y):
-        pass
-    
-    def gradient_descent(self, w, x, y, yhat):
-        pass
-    
-    def main():
-        pass
+        self.learning_rate = 0.01
+        self.total_iterations = 500
 
-# learning rate = alpha = 0.0001
-# it = 10_000
+    def y_hat(self, X, w):
+        return np.dot(X, w)
+
+    def MSE(self, yhat, y):
+        loss = 1 / self.m * sum(np.power(y - yhat, 2))
+        return loss
+
+    def gradient_descent(self, w, X, y, yhat):
+        dLdw = X.T @ (yhat - y)
+        w = w - self.learning_rate * dLdw
+        return w
+
+    def exec(self, X, y):
+        x1 = np.ones((X.shape[0], 1))
+        X = np.hstack((x1, X))
+        self.m = X.shape[0]
+        self.n = X.shape[1]
+
+        w = np.zeros((self.n, 1))
+        for it in range(self.total_iterations + 1):
+            yhat = self.y_hat(X, w)
+            loss = self.MSE(yhat, y)
+            if it % 50 == 0:
+                print(f"Cost at iteration {it} is {loss}.")
+            w = self.gradient_descent(w, X, y, yhat)
+        return w
+
+
+def main():
+    dir_path = os.path.dirname(os.path.abspath(__file__))
+    base_path = os.path.dirname(dir_path)
+    file_path = os.path.join(base_path, "data", "data.csv")
+    df = load_file(file_path)
+    if df is None:
+        ("ERROR")
+        return
+    X = df[["km"]].values.astype(float)
+    y = df[["price"]].values.astype(float)
+    X_scaled = X / 1e5
+    y_scaled = y / 1e5
+    regression = LinearRegression()
+    w = regression.exec(X_scaled, y_scaled)
+    thetas = {"theta0": w[0].item(), "theta1": w[1].item()}
+    print("Thetas =", thetas)
+    file_path = os.path.join(base_path, "data", "thetas.json")
+    with open(file_path, "w") as file:
+        json.dump(thetas, file)
+
+
+if __name__ == "__main__":
+    main()

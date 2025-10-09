@@ -16,15 +16,18 @@ def predict(mil: int):
     with open(file_path) as file:
         thetas = json.loads(file.read())
     theta0, theta1 = thetas.values()
-    price = theta0 + (theta1 * mil)
+    mil_scaled = mil / 1e5
+    price_scaled = theta0 + (theta1 * mil_scaled)
+    price = price_scaled * 1e5
     print(f"{GREEN}The estimate price is : {price}{DEFAULT}\n")
+
 
 def main():
     while True:
         try:
             inp = input("\nPlease enter a mileage: ").strip()
             if inp.isdigit():
-                predict(int(inp))
+                predict(float(inp))
                 return
             else:
                 print(BAD_INPUT_TYPE)
