@@ -1,0 +1,23 @@
+import numpy as np
+
+# m = training examples, b = number of features
+# y is R^(1 x m), X is R^(n * m), w is R^(n * 1)
+class LinearRegression():
+    def __init__(self):
+        pass
+    
+    def yhat(self, x, w):
+        """Compute predictions"""
+        pass
+    
+    def loss(self, yhat, y):
+        pass
+    
+    def gradient_descent(self, w, x, y, yhat):
+        pass
+    
+    def main():
+        pass
+
+# learning rate = alpha = 0.0001
+# it = 10_000
