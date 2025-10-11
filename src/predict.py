@@ -10,6 +10,7 @@ EXIT = f"{RED}\nProgram exited.\n{DEFAULT}"
 
 
 def predict(mil: int):
+    """Predicts the price of a car based on its mileage."""
     dir_path = os.path.dirname(os.path.abspath(__file__))
     base_path = os.path.dirname(dir_path)
     file_path = os.path.join(base_path, "data", "thetas.json")
@@ -23,6 +24,7 @@ def predict(mil: int):
 
 
 def main():
+    """Prompts the user for car mileage and displays predicted price."""
     while True:
         try:
             inp = input("\nPlease enter a mileage: ").strip()

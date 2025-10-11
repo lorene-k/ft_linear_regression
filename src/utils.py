@@ -7,6 +7,7 @@ FILE_NOT_FOUND = "FileNotFoundError: file not found at the given path"
 
 
 def load_file(path: str) -> DataFrame:
+    """Loads csv file and returns DataFrame."""
     try:
         if not isinstance(path, str):
             raise TypeError(BAD_TYPE)
