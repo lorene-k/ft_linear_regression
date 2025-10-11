@@ -31,7 +31,7 @@ class LinearRegression:
         """
         return np.dot(X, w)
 
-    def MSE(self, yhat, y):
+    def MSE(self, yhat, y, m):
         """
         Computes Mean Squared Error (MSE) between predictions and true values.
 
@@ -42,7 +42,7 @@ class LinearRegression:
         Returns:
             float: Mean Squared Error
         """
-        loss = 1 / self.m * sum(np.power(y - yhat, 2))
+        loss = 1 / m * np.sum(np.power(y - yhat, 2))
         return loss
 
     def gradient_descent(self, w, X, y, yhat):
@@ -74,21 +74,20 @@ class LinearRegression:
         """
         x1 = np.ones((X.shape[0], 1))
         X = np.hstack((x1, X))
-        self.m = X.shape[0]
-        self.n = X.shape[1]
-        w = np.zeros((self.n, 1))
+        m = X.shape[0]
+        n = X.shape[1]
+        w = np.zeros((n, 1))
         prev_loss = 0
         for it in range(self.total_iterations + 1):
             yhat = self.y_hat(X, w)
-            loss = self.MSE(yhat, y)
-            if it % 50 == 0:
-                print(f"Cost at iteration {it} is {loss.item()}.")
+            loss = self.MSE(yhat, y, m)
+            # if it % 50 == 0:
+                # print(f"Cost at iteration {it} is {loss.item()}.")
             if abs(prev_loss - loss.item()) < 1e-20:
-                print(f"\nConverged after {it} iterations with loss {loss.item()}\n\n")
+                # print(f"\nConverged after {it} iterations with loss {loss.item()}\n")
                 break
             prev_loss = loss.item()
             w = self.gradient_descent(w, X, y, yhat)
-        print(w)
         return w
 
 
