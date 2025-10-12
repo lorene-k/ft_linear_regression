@@ -62,7 +62,7 @@ class LinearRegression:
         w = w - self.learning_rate * dLdw
         return w
 
-    def exec(self, X, y):
+    def exec(self, X, y, precision=False):
         """Trains linear regression model using gradient descent.
 
         Args:
@@ -81,11 +81,14 @@ class LinearRegression:
         for it in range(self.total_iterations + 1):
             yhat = self.y_hat(X, w)
             loss = self.MSE(yhat, y, m)
-            # if it % 50 == 0:
-                # print(f"Cost at iteration {it} is {loss.item()}.")
-            if abs(prev_loss - loss.item()) < 1e-20:
-                # print(f"\nConverged after {it} iterations with loss {loss.item()}\n")
-                break
+            if precision == False:
+                if it % 50 == 0:
+                    print(f"Cost at iteration {it} is {loss.item()}.")
+                if abs(prev_loss - loss.item()) < 1e-21:
+                    print(
+                        f"\nConverged after {it} iterations with loss {loss.item()}\n"
+                    )
+                    break
             prev_loss = loss.item()
             w = self.gradient_descent(w, X, y, yhat)
         return w

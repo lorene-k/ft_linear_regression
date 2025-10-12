@@ -33,11 +33,6 @@ def get_line_data(file_path, df):
     mil_scaled = mil / 1e5
     price_scaled = theta0 + (theta1 * mil_scaled)
     price = price_scaled * 1e5
-    X = df[["km"]].values.astype(float)
-    y = df[["price"]].values.astype(float)
-    coeffs = np.polyfit(X.flatten(), y.flatten(), 1)
-    print(coeffs)
-    print(theta0 * 1e5, theta1 * 1e5)
     return price, mil
 
 

@@ -13,13 +13,13 @@ def test_coeffs(file_path, thetas, df):
     """Tests theta values againt np.polyfit coeffs."""
     theta0_scaled, theta1_scaled = thetas.values()
     theta0 = theta0_scaled * 1e5
-    theta1 = theta1_scaled * 1e5
+    theta1 = theta1_scaled
     X = df[["km"]].values.astype(float)
     y = df[["price"]].values.astype(float)
     coeffs = np.polyfit(X.flatten(), y.flatten(), 1)
-    print("--- THETAS TEST ---")
+    print("\n--- THETAS TEST ---")
     print(f"• np.polyfit : theta0 = {coeffs[1]:e} ; theta1 = {coeffs[0]:e} ")
-    print(f"• my coeffs : theta0 = {theta0:e} ; my_theta1 = {theta1:e}")
+    print(f"• my coeffs : theta0 = {theta0:e} ; my_theta1 = {theta1:e}\n")
 
 
 def main():
