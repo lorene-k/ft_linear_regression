@@ -38,13 +38,17 @@ class Precision:
         SST = np.sum((self.y - y_mean) ** 2)
         R2 = 1 - SSR / SST
         print(f"• R² = {R2:.2f}")
-        print(f"{ITALIC}Percentage of variance explained by model = {(R2 * 100):.2f}%{DEFAULT}")
+        print(
+            f"{ITALIC}Percentage of variance explained by model = {(R2 * 100):.2f}%{DEFAULT}"
+        )
 
     def check_RMSE(self):
         """Computes and prints Root Mean Squared Error (RMSE)."""
         RMSE = self.regression.MSE(self.yhat, self.y, self.m) ** 0.5
         print(f"• RMSE = {RMSE:.2f}")
-        print(f"{ITALIC}On average, predictions deviate by {(RMSE * 1e5):.2f}${DEFAULT}\n")
+        print(
+            f"{ITALIC}On average, predictions deviate by {(RMSE * 1e5):.2f}${DEFAULT}\n"
+        )
 
     def check_MAE(self):
         """Computes and prints Mean Absolute Error.""" ""
@@ -87,9 +91,9 @@ class Precision:
             residuals = self.y - self.yhat
             mean_residuals = np.sum(residuals) / len(residuals)
             variance = np.sum((residuals - mean_residuals) ** 2) / (len(residuals) - 1)
-            print(f"• Residuals Mean = {mean_residuals:.12f}")
+            print(f"• Residuals Mean = {(mean_residuals * 1e5):.10f}")
             print("Average error of the model's predictions\n")
-            print(f"• Variance = {variance:.12f}")
+            print(f"• Variance = {(variance * 1e5):.10f}")
             print(f"Spread of errors around the mean\n")
             plt.scatter(self.X, residuals, label="Residuals")
             plt.title("Residuals")
