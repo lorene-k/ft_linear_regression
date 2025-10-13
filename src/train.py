@@ -62,7 +62,7 @@ class LinearRegression:
         w = w - self.learning_rate * dLdw
         return w
 
-    def exec(self, X, y, precision=False):
+    def exec(self, X, y, thetas, precision=False):
         """Trains linear regression model using gradient descent.
 
         Args:
@@ -76,7 +76,8 @@ class LinearRegression:
         X = np.hstack((x1, X))
         m = X.shape[0]
         n = X.shape[1]
-        w = np.zeros((n, 1))
+        theta0, theta1 = thetas.values()
+        w = np.array([[theta0], [theta1]])
         prev_loss = 0
         for it in range(self.total_iterations + 1):
             yhat = self.y_hat(X, w)
@@ -108,8 +109,12 @@ def main():
         return
     X = df[["km"]].values.astype(float) / 1e5
     y = df[["price"]].values.astype(float) / 1e5
+    file_path = os.path.join(base_path, "data", "thetas.json")
+    with open(file_path) as file:
+        thetas = json.loads(file.read())
+    theta0, theta1 = thetas.values()
     regression = LinearRegression()
-    w = regression.exec(X, y)
+    w = regression.exec(X, y, thetas)
     thetas = {"theta0": w[0].item(), "theta1": w[1].item()}
     file_path = os.path.join(base_path, "data", "thetas.json")
     with open(file_path, "w") as file:
