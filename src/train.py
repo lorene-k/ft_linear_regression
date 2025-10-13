@@ -1,6 +1,6 @@
+from src.utils import load_file
 import numpy as np
 import json
-from utils import load_file
 import os
 
 

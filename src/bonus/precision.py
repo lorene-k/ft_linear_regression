@@ -1,9 +1,9 @@
-import os
-import json
-from utils import load_file
-import numpy as np
-from train import LinearRegression
+from src.utils import load_file
+from src.train import LinearRegression
 import matplotlib.pyplot as plt
+import numpy as np
+import json
+import os
 
 BLUE = "\033[38;5;26m"
 CYAN = "\033[1;36m"
@@ -128,6 +128,7 @@ def main():
     """Loads data and checks model precision."""
     dir_path = os.path.dirname(os.path.abspath(__file__))
     base_path = os.path.dirname(dir_path)
+    base_path = os.path.dirname(base_path)
     file_path = os.path.join(base_path, "data", "thetas.json")
     with open(file_path) as file:
         thetas = json.loads(file.read())

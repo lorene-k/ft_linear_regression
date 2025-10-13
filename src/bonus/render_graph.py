@@ -1,4 +1,4 @@
-from utils import load_file
+from src.utils import load_file
 from pandas import DataFrame
 import matplotlib.pyplot as plt
 import numpy as np

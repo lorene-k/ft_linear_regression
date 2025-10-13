@@ -13,18 +13,19 @@ Predict car prices from mileage using a simple linear regression model trained w
     ```bash
     git clone https://github.com/lorene-k/ft_linear_regression.git
     cd ft_linear_regression
-    source setup.py
+    source setup.sh
+    chmod +x run.sh
     ```
 2. Train model
     ```bash
-        src/train.py
+        ./run.sh train
     ```
 3. Predict price
     ```bash
-        src/predict.py
+        ./run.sh predict
     ```
 4.  Evaluate model and visualize data
     ```bash
-        src/bonus_precision.py
-        src/bonus_render_graph.py
+        ./run.sh precision
+        ./run.sh graph
     ```
