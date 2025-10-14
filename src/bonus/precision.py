@@ -76,7 +76,7 @@ class Precision:
             y_training = self.y[mask]
             X_test = self.X[it : it + 1]
             y_test = self.y[it : it + 1].astype(float)
-            thetas = self.regression.exec(X_training, y_training, thetas, True)
+            thetas = self.regression.exec(X_training, y_training, self.thetas, True)
             y_pred = thetas[0] + thetas[1] * X_test
             loss += np.sum((y_test - y_pred) ** 2)
         RMSE = np.sqrt(loss / set_size) * 1e5
