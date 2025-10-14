@@ -105,7 +105,7 @@ def main():
     file_path = os.path.join(base_path, "data", "data.csv")
     df = load_file(file_path)
     if df is None:
-        ("ERROR")
+        print("ERROR")
         return
     X = df[["km"]].values.astype(float) / 1e5
     y = df[["price"]].values.astype(float) / 1e5

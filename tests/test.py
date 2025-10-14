@@ -19,7 +19,7 @@ class TestLinearRegression(unittest.TestCase):
             file_path = os.path.join(base_path, "data", "data.csv")
             df = load_file(file_path)
             if df is None:
-                ("ERROR")
+                print("ERROR")
                 return
             file_path = os.path.join(base_path, "data", "thetas.json")
             with open(file_path) as file:
@@ -35,36 +35,11 @@ class TestLinearRegression(unittest.TestCase):
         except Exception as e:
             print("Error:", e)
 
-
     def test_thetas(self):
         """Tests theta values againt np.polyfit coeffs."""
         coeffs = np.polyfit(self.X.flatten(), self.y.flatten(), 1)
         np.testing.assert_almost_equal(self.theta0, coeffs[1], decimal=1)
         np.testing.assert_almost_equal(self.theta1, coeffs[0], decimal=3)
-
-
-def main():
-    try:
-        dir_path = os.path.dirname(os.path.abspath(__file__))
-        base_path = os.path.dirname(dir_path)
-        file_path = os.path.join(base_path, "data", "data.csv")
-        df = load_file(file_path)
-        if df is None:
-            ("ERROR")
-            return
-        file_path = os.path.join(base_path, "data", "thetas.json")
-        with open(file_path) as file:
-            thetas = json.loads(file.read())
-        X = df[["km"]].values.astype(float)
-        y = df[["price"]].values.astype(float)
-        regression = TestLinearRegression(file_path, thetas, df)
-        regression.test_thetas()
-    except EOFError:
-        print("\nEOF (Ctrl+D).")
-    except KeyboardInterrupt:
-        print("\nInterrupt (Ctrl+C).")
-    except Exception as e:
-        print("Error:", e)
 
 
 if __name__ == "__main__":

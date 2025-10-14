@@ -39,17 +39,13 @@ class Precision:
         SST = np.sum((self.y - y_mean) ** 2)
         R2 = 1 - SSR / SST
         print(f"• R² = {R2:.2f}")
-        print(
-            f"{ITALIC}Percentage of variance explained by model = {(R2 * 100):.2f}%{DEFAULT}"
-        )
+        print(f"Percentage of variance explained by model = {(R2 * 100):.2f}%")
 
     def check_RMSE(self):
         """Computes and prints Root Mean Squared Error (RMSE)."""
         RMSE = self.regression.MSE(self.yhat, self.y, self.m) ** 0.5
         print(f"• RMSE = {RMSE:.2f}")
-        print(
-            f"{ITALIC}On average, predictions deviate by {(RMSE * 1e5):.2f}${DEFAULT}\n"
-        )
+        print(f"On average, predictions deviate by {(RMSE * 1e5):.2f}$\n")
 
     def check_MAE(self):
         """Computes and prints Mean Absolute Error.""" ""
@@ -57,13 +53,13 @@ class Precision:
         yhat = self.yhat * 1e5
         MAE = np.sum(abs(y - yhat)) / self.m
         print(f"• MAE = {MAE:.2f}")
-        print(f"{ITALIC}On average, predictions are off by {MAE:.2f}${DEFAULT}\n")
+        print(f"On average, predictions are off by {MAE:.2f}$\n")
 
     def check_MAPE(self):
         """Computes Mean Absolute Percentage Error."""
         MAPE = np.sum(abs(self.y - self.yhat) / self.y) / self.m * 100
         print(f"• MAPE = {MAPE:.2f}")
-        print(f"{ITALIC}On average, predictions are off by {MAPE:.2f}%{DEFAULT}\n")
+        print(f"On average, predictions are off by {MAPE:.2f}%\n")
 
     def check_precision(self):
         """Computes model accuracy using Leave-One-Out Cross-Validation."""
@@ -84,7 +80,7 @@ class Precision:
         relative_error = (RMSE / mean_price) * 100
         print(f"• LOOCV RMSE = {RMSE:.2f}")
         print(
-            f"On average, when tested on unseen data, predictions are off by {relative_error:.2f}%\n"
+            f"On average, when tested on unseen data, predictions are off by {relative_error:.2f}%{DEFAULT}\n"
         )
 
     def check_residuals(self):
@@ -101,7 +97,7 @@ class Precision:
             plt.xlabel("km")
             plt.ylabel("Residuals")
             plt.axhline(0, color="cyan", linestyle="--")
-            if input(f'{MAUVE}Enter "yes" to show residuals graph: {DEFAULT}') == "yes":
+            if input(f'{MAUVE}Enter "yes" to show residuals graph: ') == "yes":
                 plt.show()
         except EOFError:
             print("\n")
@@ -128,8 +124,7 @@ class Precision:
 def main():
     """Loads data and checks model precision."""
     dir_path = os.path.dirname(os.path.abspath(__file__))
-    base_path = os.path.dirname(dir_path)
-    base_path = os.path.dirname(base_path)
+    base_path = os.path.dirname(os.path.dirname(dir_path))
     file_path = os.path.join(base_path, "data", "thetas.json")
     with open(file_path) as file:
         thetas = json.loads(file.read())

@@ -40,11 +40,11 @@ def main():
     """Loads dataset and predicted theta values, then renders the regression graph."""
     try:
         dir_path = os.path.dirname(os.path.abspath(__file__))
-        base_path = os.path.dirname(dir_path)
+        base_path = os.path.dirname(os.path.dirname(dir_path))
         file_path = os.path.join(base_path, "data", "data.csv")
         df = load_file(file_path)
         if df is None:
-            ("ERROR")
+            print("ERROR")
             return
         file_path = os.path.join(base_path, "data", "thetas.json")
         line_data, mil = get_line_data(file_path, df)
