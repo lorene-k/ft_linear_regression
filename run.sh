@@ -26,7 +26,7 @@ else
         predict) python -m src.predict ;;
         precision) python -m src.bonus.precision ;;
         graph) python -m src.bonus.render_graph ;;
-        test) python -m tests.test ;;
+        test) pytest ;;
         *) echo "Invalid argument." ;;
     esac
 fi
