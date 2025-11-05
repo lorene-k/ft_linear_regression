@@ -14,11 +14,11 @@ def load_file(path: str) -> DataFrame:
         df = pd.read_csv(path)
         return df
     except PermissionError:
-        (BAD_PERMISSION)
+        print(BAD_PERMISSION)
     except FileNotFoundError:
-        (FILE_NOT_FOUND)
+        print(FILE_NOT_FOUND)
     except TypeError as e:
-        (e)
+        print(e)
     except Exception as e:
-        (f"Error: {e}")
+        print(f"Error: {e}")
     return None

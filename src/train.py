@@ -75,7 +75,6 @@ class LinearRegression:
         x1 = np.ones((X.shape[0], 1))
         X = np.hstack((x1, X))
         m = X.shape[0]
-        n = X.shape[1]
         theta0, theta1 = thetas.values()
         w = np.array([[theta0], [theta1]])
         prev_loss = 0
@@ -112,7 +111,6 @@ def main():
     file_path = os.path.join(base_path, "data", "thetas.json")
     with open(file_path) as file:
         thetas = json.loads(file.read())
-    theta0, theta1 = thetas.values()
     regression = LinearRegression()
     w = regression.exec(X, y, thetas)
     thetas = {"theta0": w[0].item(), "theta1": w[1].item()}
